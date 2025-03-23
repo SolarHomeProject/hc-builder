@@ -13,14 +13,14 @@ done
 
 echo "Building webapp..."
 
-cd hc-webapp
+cd hc-web
 grunt
 cd ..
 
 echo "Copying compiled webfiles..."
 
 cp -r HomeControl hc-deb/opt/
-cd hc-webapp/dist
+cd hc-web/dist
 for file in css/* js/*; do
     cp $file ../../hc-deb/opt/HomeControl/web/sfile/
 done
