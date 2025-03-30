@@ -1,5 +1,11 @@
 #!/bin/bash -e
 
+ROOT_PATH=$(pwd)
+
+function apply_fixes() {
+cp -r $ROOT_PATH/fixes/* $ROOT_PATH/tmp/
+}
+
 if [ -d "tmp" ]; then
     rm -rf tmp output
 fi
@@ -14,6 +20,8 @@ done
 echo "Building webapp..."
 
 cd hc-web
+npm install
+apply_fixes
 grunt
 cd ..
 
@@ -38,13 +46,13 @@ cd ..
 
 echo "Building final .img card image..."
 
-cp homecontrol*.deb pi-gen/stage3/00-hc/files
-cd pi-gen
+cp homecontrol*.deb hc-gen/stage3/00-hc/files
+cd hc-gen
 ./build.sh
 cd ..
 
 echo "Copying output file..."
 
 mkdir ../output
-mv pi-gen/deploy/* ../output/
+mv hc-gen/deploy/* ../output/
 rm -rf tmp
