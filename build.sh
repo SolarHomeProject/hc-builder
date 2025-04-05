@@ -23,24 +23,23 @@ cd hc-web
 npm install
 apply_fixes
 grunt
-cd ..
 
 echo "Copying compiled webfiles..."
 
-cp -r HomeControl hc-deb/opt/
-cd hc-web/dist
+cd dist
 for file in css/* js/*; do
-    cp $file ../../hc-deb/opt/HomeControl/web/sfile/
+    cp $file ../../HomeControl/web/sfile/
 done
 
 for file in html/*; do
-    cp $file ../../hc-deb/opt/HomeControl/web/static/
+    cp $file ../../HomeControl/web/static/
 done
 cd ../..
 
 echo "Building Debian Package..."
 
 cd hc-deb
+cp -r ../HomeControl opt/
 dpkg-buildpackage -uc -us -b
 cd ..
 
